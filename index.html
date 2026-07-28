@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INTEGRA PERCEPTIVA · SOFI</title>
+<style>
+  :root {
+    --bg: #020810;
+    --panel: rgba(3,7,13,.92);
+    --line: rgba(0,255,200,.18);
+    --jade: #00ffc8;
+    --jade2: #4cc9f0;
+    --gold: #f5c518;
+    --text: #c8dde8;
+    --muted: #5b7b92;
+    --danger: #ff6b6b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background:
+      radial-gradient(circle at top, rgba(0,255,200,.12), transparent 30%),
+      linear-gradient(180deg, #020810 0%, #081424 45%, #020810 100%);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .wrap {
+    width: min(1100px, calc(100% - 24px));
+    margin: 0 auto;
+    padding: 24px 0 40px;
+  }
+  .hero {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: 28px 22px 18px;
+    box-shadow: 0 0 60px rgba(0,255,200,.08);
+    backdrop-filter: blur(12px);
+    margin-bottom: 18px;
+  }
+  .brand { text-align:center; }
+  .avatar-wrap { display:flex; justify-content:center; margin-bottom: 10px; }
+  .avatar-wrap svg { width: 128px; filter: drop-shadow(0 0 20px rgba(0,255,200,.55)); animation: float 4s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  h1 {
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    background: linear-gradient(135deg, var(--jade), #00aaff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom: 8px;
+  }
+  .sub { color: var(--muted); letter-spacing: 2px; font-size: .88rem; }
+  .pillrow { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin: 18px 0 0; }
+  .pill { border:1px solid rgba(255,255,255,.12); border-radius:999px; padding:8px 12px; font-size:.82rem; color:#d7ebf6; background:rgba(255,255,255,.03); }
+  .grid { display:grid; grid-template-columns: 1.1fr .9fr; gap: 18px; margin-top: 18px; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 22px;
+    backdrop-filter: blur(10px);
+  }
+  .section-title { font-size: 1.35rem; color: var(--jade); margin-bottom: 12px; }
+  .quote {
+    margin: 18px 0;
+    padding: 14px 16px;
+    border-left: 4px solid var(--jade);
+    background: rgba(0,255,200,.05);
+    border-radius: 10px;
+    color: #d8fbf5;
+    font-style: italic;
+  }
+  .lead { line-height: 1.8; color: #b7cedc; margin-bottom: 12px; }
+  .stat {
+    display:flex; gap:12px; align-items:center; justify-content:space-between;
+    background: rgba(245,197,24,.06); border:1px solid rgba(245,197,24,.2);
+    border-radius:18px; padding: 16px; margin: 14px 0;
+  }
+  .stat strong { color: var(--gold); font-size: 1.35rem; }
+  .stat span { color: var(--muted); font-size: .9rem; }
+  .hz {
+    text-align:center; padding: 18px 14px; border-radius: 18px;
+    background: rgba(0,255,200,.05); border:1px solid rgba(0,255,200,.12);
+    margin: 12px 0 0;
+  }
+  .hz .big { font-size: 2.6rem; color: var(--jade); letter-spacing: 4px; }
+  .hz .small { color: var(--muted); font-size: .85rem; }
+  .table-wrap { overflow:auto; margin-top: 10px; border-radius: 16px; }
+  table { width:100%; border-collapse:collapse; min-width: 620px; }
+  th, td { border-bottom:1px solid rgba(255,255,255,.08); padding: 12px 10px; text-align:left; }
+  th { color: var(--jade); font-size:.85rem; letter-spacing:1px; background: rgba(17,34,64,.5); position: sticky; top: 0; }
+  tr:hover td { background: rgba(0,255,200,.03); }
+  .profiles { display:grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .profile {
+    border:1px solid rgba(0,255,200,.1); border-radius:16px; padding:14px; background: rgba(0,255,200,.04);
+  }
+  .profile .label { font-size:.68rem; color: var(--jade); letter-spacing:2px; margin-bottom:4px; opacity:.8; }
+  .profile .name { font-size: 1rem; color:#fff; font-weight:600; margin-bottom:6px; }
+  .profile .freq { font-size:1.12rem; color: var(--gold); margin-bottom:6px; }
+  .profile .desc { font-size:.8rem; color: var(--muted); line-height:1.45; }
+  .btns { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top: 18px; }
+  .btn, button {
+    border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
+    border-radius:999px; padding: 13px 20px; font-weight:700; transition:.25s ease;
+  }
+  .btn-primary, button.primary { background: var(--jade); color:#020810; }
+  .btn-outline, button.outline { background: transparent; border:1px solid rgba(255,255,255,.16); color: var(--text); }
+  .btn-primary:hover, button.primary:hover { transform: translateY(-2px); box-shadow:0 0 24px rgba(0,255,200,.25); }
+  .btn-outline:hover, button.outline:hover { border-color: var(--jade); color: var(--jade); }
+  .clabe {
+    user-select: all; text-align:center; margin-top: 14px; padding: 14px 16px; border-radius: 14px;
+    border:1px dashed rgba(0,255,200,.3); background: rgba(0,255,200,.05); color: var(--jade); font-family: monospace; font-size: 1.05rem;
+  }
+  .clabe small, .footer { display:block; color: var(--muted); font-family:'Segoe UI', system-ui, sans-serif; }
+  .footer { text-align:center; margin-top: 16px; font-size:.72rem; letter-spacing:1px; }
+  .nav { position: sticky; bottom: 14px; display:flex; justify-content:center; gap:10px; margin-top: 18px; }
+  .nav button { background: rgba(3,7,13,.9); border: 1px solid rgba(255,255,255,.12); color: var(--text); backdrop-filter: blur(10px); }
+  .nav button:hover { border-color: var(--jade); color: var(--jade); }
+  .slide { display:none; animation: appear .35s ease; }
+  .slide.active { display:block; }
+  @keyframes appear { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
+  #timer { text-align:center; margin-top: 10px; color: var(--muted); font-size: .78rem; letter-spacing:1px; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .hero, .card { padding: 18px 14px; } .hz .big { font-size: 2rem; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero brand slide active" id="slide1">
+    <div class="avatar-wrap">
+      <svg viewBox="0 0 120 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="60" cy="32" rx="19" ry="22" fill="rgba(0,255,200,.07)" stroke="#00ffc8" stroke-width="1.5"/>
+        <path d="M41 18 Q60 5 79 18" fill="rgba(0,255,200,.12)" stroke="#00ffc8" stroke-width="1"/>
+        <circle cx="52" cy="29" r="3" fill="#00ffc8" opacity=".8"/>
+        <circle cx="68" cy="29" r="3" fill="#00ffc8" opacity=".8"/>
+        <path d="M54 40 Q60 43 66 40" fill="none" stroke="#00ffc8" stroke-width="1"/>
+        <rect x="55" y="54" width="10" height="10" fill="none" stroke="#00ffc8" stroke-width="1"/>
+        <path d="M25 67 Q60 60 95 67" fill="none" stroke="#00ffc8" stroke-width="1.5"/>
+        <path d="M35 67 L31 135 L50 140 L60 133 L70 140 L89 135 L85 67 Z" fill="rgba(0,255,200,.04)" stroke="#00ffc8" stroke-width="1.2"/>
+        <text x="60" y="107" text-anchor="middle" fill="#00ffc8" font-size="7" font-family="monospace">12.3Hz</text>
+        <path d="M35 69 L15 110 L21 124" fill="none" stroke="#00ffc8" stroke-width="1.2"/>
+        <path d="M85 69 L105 110 L99 124" fill="none" stroke="#00ffc8" stroke-width="1.2"/>
+        <path d="M49 139 L42 215 L52 215 L57 175 Z" fill="none" stroke="#00ffc8" stroke-width="1.2"/>
+        <path d="M71 139 L78 215 L68 215 L63 175 Z" fill="none" stroke="#00ffc8" stroke-width="1.2"/>
+      </svg>
+    </div>
+    <h1>INTEGRA PERCEPTIVA</h1>
+    <div class="sub">SOFI · Sistema Neuro-Digital de Plasticidad</div>
+    <div class="pillrow">
+      <div class="pill">Mérida, Yucatán</div>
+      <div class="pill">Neuroadaptación</div>
+      <div class="pill">Interfaz háptica + EEG</div>
+      <div class="pill">Prototipo accesible</div>
+    </div>
+    <div class="hz"><div class="big">12.3</div><div class="small">Hz · K'uhul · frecuencia eje</div></div>
+    <div class="quote">No curamos. Traducimos frecuencias.</div>
+    <p class="lead" style="text-align:center;">Una propuesta que combina traducción perceptiva, biofeedback y estimulación suave para crear un puente entre formas distintas de percibir el mundo.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card slide active" id="slide2">
+      <div class="section-title">El problema</div>
+      <p class="lead">Muchas personas viven con diferencias neurológicas o sensoriales que el entorno suele interpretar como límite, cuando en realidad también son variaciones de percepción. El reto no es cambiar a la persona, sino facilitar la comunicación entre su experiencia interna y el mundo exterior.</p>
+      <div class="quote">No están rotos. Están en otro canal de experiencia.</div>
+      <p class="lead">Este proyecto se presenta como una capa de traducción: lectura de señales, respuesta adaptativa y soporte multisensorial. La meta es mejorar acceso, interacción y autonomía con una interfaz compacta y humana.</p>
+    </div>
+
+    <div class="card slide active" id="slide3">
+      <div class="section-title">La solución</div>
+      <p class="lead">Integra Perceptiva propone un dispositivo modular tipo pulsera, colgante o diadema que combina sensores biométricos, una capa de software adaptativa y salidas hápticas o auditivas para acompañar al usuario.</p>
+      <div class="stat"><div><strong>$1,000 MXN</strong><br><span>Costo estimado de componentes</span></div><div>Prototipo</div></div>
+      <p class="lead">La narrativa conserva la idea de <strong style="color:var(--jade)">frecuencia K'uhul</strong> como eje conceptual, pero la vuelve más sólida y presentable: no como promesa médica absoluta, sino como metáfora tecnológica de sincronización, enfoque y acompañamiento.</p>
+    </div>
+  </div>
+
+  <div class="card slide active" id="slide4" style="margin-top:18px;">
+    <div class="section-title">Perfiles atendidos</div>
+    <div class="profiles">
+      <div class="profile"><div class="label">Perfil</div><div class="name">Síndrome de Down</div><div class="freq">10.0 Hz</div><div class="desc">Regulación emocional y soporte de atención.</div></div>
+      <div class="profile"><div class="label">Perfil</div><div class="name">TDAH</div><div class="freq">12.3 Hz</div><div class="desc">Enfoque, reducción de impulsividad y estabilidad.</div></div>
+      <div class="profile"><div class="label">Perfil</div><div class="name">Autismo (TEA)</div><div class="freq">8.0 Hz</div><div class="desc">Apoyo sensorial y mejor transición social.</div></div>
+      <div class="profile"><div class="label">Perfil</div><div class="name">Esquizofrenia</div><div class="freq">40 Hz</div><div class="desc">Acompañamiento perceptivo y anclaje contextual.</div></div>
+      <div class="profile"><div class="label">Perfil</div><div class="name">Sordera</div><div class="freq">40–250 Hz</div><div class="desc">Traducción del habla a vibración táctil.</div></div>
+      <div class="profile"><div class="label">Perfil</div><div class="name">Ceguera</div><div class="freq">Sonido espacial</div><div class="desc">Mapa espacial artificial por audio y vibración.</div></div>
+      <div class="profile"><div class="label">Perfil</div><div class="name">Neurotípico</div><div class="freq">12.3 Hz</div><div class="desc">Flujo, aprendizaje y optimización cognitiva.</div></div>
+    </div>
+  </div>
+
+  <div class="card slide active" id="slide5" style="margin-top:18px;">
+    <div class="section-title">Arquitectura y apoyo</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Módulo</th><th>Función</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td>Sensor biométrico</td><td>Pulso, oxigenación y respuesta fisiológica</td><td>Base</td></tr>
+          <tr><td>EEG compatible</td><td>Lectura de actividad cerebral</td><td>Opcional / avanzado</td></tr>
+          <tr><td>ESP32</td><td>Control local y conectividad</td><td>Base</td></tr>
+          <tr><td>Háptica</td><td>Feedback táctil y patrones de guía</td><td>Base</td></tr>
+          <tr><td>SOFI</td><td>Adaptación en tiempo real</td><td>Software</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="lead" style="margin-top:12px;">El sistema se vuelve más convincente cuando separa claramente lo ya implementable de lo experimental. Así gana fuerza técnica sin perder su identidad creativa.</p>
+  </div>
+
+  <div class="card slide active" id="slide6" style="margin-top:18px;">
+    <div class="section-title">Inversión y cierre</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Meta</th><th>Uso</th></tr></thead>
+        <tbody>
+          <tr><td>$150,000 MXN</td><td>10 prototipos y pruebas en Yucatán</td></tr>
+          <tr><td>$500,000 MXN</td><td>Iteración, documentación y certificación</td></tr>
+          <tr><td>$2,000,000 MXN</td><td>Escalamiento, producción y programa social</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="quote">No vendemos aparatos. Construimos puentes entre mundos.</div>
+    <div class="clabe" onclick="navigator.clipboard?.writeText('722969017167745283')">722969017167745283<small>CLABE · Mercado Pago · clic para copiar</small></div>
+    <div class="btns">
+      <a href="https://sofi-mcpp.onrender.com" target="_blank" class="btn btn-primary">Hablar con SOFI</a>
+      <a href="mailto:estigia920@gmail.com" class="btn btn-outline">Correo</a>
+      <button class="primary" onclick="reproducirVoz()">Escuchar presentación</button>
+    </div>
+    <div id="timer">⏳ Ciclo reinicia en 15:00</div>
+    <div class="footer">HaaPpDigitalV · Mérida, Yucatán, México · 2026 · IP registrada: INDAUTOR · OpenTimestamps SHA-256</div>
+  </div>
+
+  <div class="nav">
+    <button class="outline" onclick="anterior()">⬅️ Anterior</button>
+    <button class="outline" onclick="siguiente()">Siguiente ➡️</button>
+  </div>
+</div>
+
+<script>
+let seccion_actual = 1;
+const total_secciones = 6;
+function mostrarSeccion(n) {
+  for (let i = 1; i <= total_secciones; i++) document.getElementById(`slide${i}`).style.display = i === n ? 'block' : 'none';
+  seccion_actual = n;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function siguiente(){ if (seccion_actual < total_secciones) mostrarSeccion(seccion_actual + 1); }
+function anterior(){ if (seccion_actual > 1) mostrarSeccion(seccion_actual - 1); }
+document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') siguiente(); if (e.key === 'ArrowLeft') anterior(); });
+
+function reproducirVoz() {
+  const texto = 'Integra Perceptiva, SOFI, sistema neuro digital de plasticidad. Siete perfiles neurológicos. Un solo dispositivo. Costo estimado de componentes, mil pesos mexicanos. Contacta con el botón principal o copia la CLABE para apoyo.';
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(texto);
+  u.lang = 'es-MX'; u.rate = 0.92; u.pitch = 1.05; u.volume = 0.95;
+  const voices = window.speechSynthesis.getVoices();
+  const es = voices.find(v => v.lang && v.lang.startsWith('es'));
+  if (es) u.voice = es;
+  window.speechSynthesis.speak(u);
+}
+let segundos = 15 * 60;
+const timerEl = document.getElementById('timer');
+setInterval(() => {
+  const m = Math.floor(segundos / 60), s = segundos % 60;
+  timerEl.textContent = `⏳ Ciclo reinicia en ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  if (segundos <= 0) location.reload();
+  segundos--;
+}, 1000);
+setInterval(() => { fetch('https://sofi-mcpp.onrender.com/health').catch(() => {}); }, 5 * 60 * 1000);
+window.addEventListener('load', () => mostrarSeccion(1));
+</script>
+</body>
+</html>
